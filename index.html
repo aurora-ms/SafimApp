@@ -4,8 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Safim App</title>
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="shortcut icon" href="src/img/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Oxanium:400,500,600,700,800 display=swap" rel="stylesheet">
 </head>
 <body>
-    
+    <header class="flex">
+        <img id="logoApp" src="src/img/logo_app.png" alt="">
+        <h1>Safim App</h1>
+    </header>
+    <main>
+        <section id="initSection" class="flex">
+            <button id="loginButton" class="gnralButtonStyle">Iniciar sesión</button>
+            <button id="registerButton" class="gnralButtonStyle blueStyleButton">Regístrate</button>
+        </section>
+        <section id="loginSection" class="flex gnralWhiteStyle hidden">
+            <input id="userEmail" type="email" placeholder="Correo electrónico">
+            <input id="userPassword" type="password" placeholder="Contraseña">
+            <button id="loginButtonSection" class="gnralButtonStyle blueStyleButton">Iniciar sesión</button>
+            <button id="googleLogin">Iniciar sesion con Google</button>
+            <p class="linkedClass">Registrarme en Safim</p>
+        </section>
+        <section id="registerSection" class="flex gnralWhiteStyle hidden">
+            <input id="userNameRegtr" type="text" placeholder="Nombre de usuario">
+            <input  id="userEmailRegtr"  type="email" placeholder="Correo electrónico">
+            <input id="userPasswordRegtr" type="password" placeholder="Contraseña">
+            <button id="registerButtonSection" class="gnralButtonStyle blueStyleButton">Registrarme</button>
+            <p class="linkedClass">Ya tengo cuenta</p>
+
+        </section>
+    </main>
 </body>
+<script src="src/js/script.js" type="module"></script>
 </html>

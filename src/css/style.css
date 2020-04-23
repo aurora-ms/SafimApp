@@ -1,0 +1,131 @@
+body {
+    margin: 0;
+    font-family: 'Oxanium';
+    width: 100%;
+    background-color: hsl(210, 91%, 8%);
+}
+
+header {
+    padding: 20px 0;
+    background-color: #09233e;
+}
+
+main {
+    padding: 20px;
+    overflow: hidden;
+}
+
+section#initSection {
+    flex-direction: column;
+    margin: auto;
+    max-width: 500px;
+    min-width: 310px;
+  
+}
+
+
+h1 {
+    font-size: 45px;
+    text-transform: uppercase;
+    color: white;
+    font-weight: 700;
+}
+
+h3{
+    color: white;;
+}
+
+img#logoApp {
+    height: auto;
+    margin-right: 15px;
+}
+
+.gnralButtonStyle {    
+    margin: 10px 0;
+    padding: 10px 0;  
+    font-family: 'Oxanium';
+    font-size: 15px;
+    border-radius: 20px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.5s ease-in;
+}
+
+#loginButton {
+    background: none;
+    border: 2px solid #4ea4ff;
+    color: #4ea4ff;
+}
+
+#loginButton:hover {
+    background: #09233e;
+}
+
+#loginButton:focus {
+    background-color: #09233e;
+    outline: none;
+}
+
+
+.blueStyleButton {
+    background-color: #4ea4ff;
+    color: white;
+}
+
+.blueStyleButton:hover {
+    background-color: #4285ce;
+}
+
+.blueStyleButton:focus {
+    outline: none;
+    background-color: #346ba7;
+}
+
+.gnralWhiteStyle {
+    flex-direction: column;
+    max-width: 500px;
+    margin: auto;
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+    transition: all 2s ease;
+}
+
+.gnralWhiteStyle input {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #021427;
+    border: none;
+    color: white;
+    border-radius: 6px;
+}
+
+
+.linkedClass {
+    font-size: 15px;
+    color: #4ea4ff;
+    text-align: center;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.linkedClass:hover {
+    text-decoration: underline;
+}
+
+.errorMsStyle {
+    color: red;
+    font-size: 14px;
+    font-family: sans-serif;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.hidden{
+    display: none;
+}
