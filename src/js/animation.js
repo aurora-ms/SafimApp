@@ -6,7 +6,7 @@ export  function initAnimation (userName, section, mensaje) {
 
     sucessMessg.innerText = userName + mensaje;
 
-    section.style.transform = "translateY(-321px)";
+    section.style.transform = "translateY(-521px)";
 
     setInterval(() => {
         section.style.display = "none"

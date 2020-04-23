@@ -3,12 +3,25 @@ body {
     font-family: 'Oxanium';
     width: 100%;
     background-color: hsl(210, 91%, 8%);
+    overflow: hidden;
 }
 
 header {
-    padding: 20px 0;
-    background-color: #09233e;
+    padding: 40px 0;
+    background-color: hsl(210, 91%, 8%);
 }
+
+@keyframes opacityHeader {
+    0% {
+      opacity: 0;
+  
+    }
+  
+    100% {
+        opacity: 1;
+  
+    }
+  }
 
 main {
     padding: 20px;
@@ -41,8 +54,8 @@ img#logoApp {
 }
 
 .gnralButtonStyle {    
-    margin: 10px 0;
-    padding: 10px 0;  
+    margin: 10px auto;
+    padding: 10px 0;
     font-family: 'Oxanium';
     font-size: 15px;
     border-radius: 20px;
@@ -50,6 +63,7 @@ img#logoApp {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.5s ease-in;
+    width: 90%;
 }
 
 #loginButton {
@@ -84,7 +98,7 @@ img#logoApp {
 
 .gnralWhiteStyle {
     flex-direction: column;
-    max-width: 500px;
+    max-width: 400px;
     margin: auto;
     padding: 15px;
     background-color: white;
@@ -94,11 +108,12 @@ img#logoApp {
 
 .gnralWhiteStyle input {
     margin: 10px 0;
-    padding: 10px;
+    padding:15px 10px;
     background-color: #021427;
     border: none;
     color: white;
-    border-radius: 6px;
+    border-radius: 0px 6px 6px 0px;
+    width: 80%;
 }
 
 
@@ -118,6 +133,99 @@ img#logoApp {
     color: red;
     font-size: 14px;
     font-family: sans-serif;
+    width: 100%;
+    margin-left: 6px;
+}
+
+
+section#menuSection {
+    background: #3273b8;
+    align-items: center;
+    height: 82px;
+    transition: all 2s cubic-bezier(0, 0.72, 0.25, 1);
+    padding: 20px;
+}
+
+div#user_select h3 {
+    font-size: 23px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+div#user_select {
+    width: 54%;
+    text-align: right;
+}
+
+#login h4 {
+    color: white;
+    margin-top: 36px;
+    font-size: 30px;
+    font-weight: 500;
+    z-index: 2;
+}
+
+button#googleLogin {
+    align-items: center;
+}
+
+
+
+button#googleLogin:hover {
+    background: hsla(0, 0%, 91%, 1);
+}
+button#googleLogin:focus {
+    outline: none;
+}
+button#googleLogin:active {
+    background: hsla(0, 0%, 83%, 1);
+}
+
+
+button#googleLogin img {
+    width: 30px;
+    margin-right: 15px;
+}
+
+.iconsBox {
+    width: 90%;
+    margin: auto;
+    align-items: center;
+}
+
+.iconsBox i {color: #c6c6c6;font-size: 22px;}
+
+
+.iconsBox div {
+    height: 45px;
+    background: #021427;
+    border-radius: 6px 0px 0px 6px;
+    width: 12%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-right: 1px solid white;
+}
+
+div#separador {
+    align-items: center;
+    margin: 40px 0px 9px;
+}
+
+#separador hr {
+    border: none;
+    height: 1px;
+    background: #021427;
+    width: 35%;
+    margin: 0;
+}
+
+#separador h6 {
+    text-align: center;
+    margin: 0 20px;
+    font-size: 18px;
+    font-family: Roboto;
+    font-weight: 300;
 }
 
 .flex {

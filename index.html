@@ -14,6 +14,9 @@
 
     <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-database.js"></script>
 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
 </head>
 <body>
     <header class="flex">
@@ -21,25 +24,56 @@
         <h1>Safim App</h1>
     </header>
     <main>
-        <section id="initSection" class="flex">
+        <section id="initSection" class="flex ">
+
             <button id="loginButton" class="gnralButtonStyle">Iniciar sesión</button>
             <button id="registerButton" class="gnralButtonStyle blueStyleButton">Regístrate</button>
+
         </section>
         <section id="loginSection" class="flex gnralWhiteStyle hidden">
-            <input id="userEmail" type="email" placeholder="Correo electrónico">
-            <input id="userPassword" type="password" placeholder="Contraseña">
+            <div class="flex iconsBox">
+                <div> <i class="material-icons">alternate_email</i></div>
+                <input id="userEmail" type="email" placeholder="Correo electrónico">
+            </div>
+            <div class="flex iconsBox">
+                <div> <i class="material-icons">lock</i></div>
+                <input id="userPassword" type="password" placeholder="Contraseña">
+            </div>
             <button id="loginButtonSection" class="gnralButtonStyle blueStyleButton">Iniciar sesión</button>
-            <button id="googleLogin">Iniciar sesion con Google</button>
+            <div id="separador" class="flex" >
+                <hr>
+                <h6>o</h6>
+                <hr>
+            </div>
+            <button id="googleLogin" class="gnralButtonStyle flex"> <img src="src/img/ico-google.png" alt="">
+                Iniciar sesion con Google</button>
             <p class="linkedClass">Registrarme en Safim</p>
         </section>
         <section id="registerSection" class="flex gnralWhiteStyle hidden">
-            <input id="userNameRegtr" type="text" placeholder="Nombre de usuario">
-            <span id="errorMessageName" class="hidden errorMsStyle"></span>
-            <input  id="userEmailRegtr"  type="email" placeholder="Correo electrónico">
-            <span id="errorMessageEmail" class="hidden errorMsStyle"></span>
-            <input id="userPasswordRegtr" type="password" placeholder="Contraseña">
-            <span id="errorMessagePassword" class="hidden errorMsStyle"></span>
+            <div class="flex iconsBox">
+                <div> <i class="material-icons">face</i></div>
+                <input id="userNameRegtr" type="text" placeholder="Nombre de usuario">
+                <span id="errorMessageName" class="hidden errorMsStyle"></span>
+            </div>
+            <div class="flex iconsBox">
+                <div> <i class="material-icons">alternate_email</i></div>
+                <input id="userEmailRegtr" type="email" placeholder="Correo electrónico">
+                <span id="errorMessageEmail" class="hidden errorMsStyle"></span>
+            </div>
+            <div class="flex iconsBox">
+                <div> <i class="material-icons">lock</i></div>
+                <input id="userPasswordRegtr" type="password" placeholder="Contraseña">
+                <span id="errorMessagePassword" class="hidden errorMsStyle"></span>
+            </div>
             <button id="registerButtonSection" class="gnralButtonStyle blueStyleButton">Registrarme</button>
+            <div id="separador" class="flex" >
+                <hr>
+                <h6>o</h6>
+                <hr>
+            </div>
+
+            <button id="googleLogin" class="gnralButtonStyle flex"> <img src="src/img/ico-google.png" alt="">
+                Iniciar sesion con Google</button>
             <p class="linkedClass">Ya tengo cuenta</p>
 
         </section>
