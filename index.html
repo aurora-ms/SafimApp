@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="shortcut icon" href="src/img/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Oxanium:400,500,600,700,800 display=swap" rel="stylesheet">
+
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-auth.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-database.js"></script>
+
 </head>
 <body>
     <header class="flex">
@@ -27,8 +34,11 @@
         </section>
         <section id="registerSection" class="flex gnralWhiteStyle hidden">
             <input id="userNameRegtr" type="text" placeholder="Nombre de usuario">
+            <span id="errorMessageName" class="hidden errorMsStyle"></span>
             <input  id="userEmailRegtr"  type="email" placeholder="Correo electrónico">
+            <span id="errorMessageEmail" class="hidden errorMsStyle"></span>
             <input id="userPasswordRegtr" type="password" placeholder="Contraseña">
+            <span id="errorMessagePassword" class="hidden errorMsStyle"></span>
             <button id="registerButtonSection" class="gnralButtonStyle blueStyleButton">Registrarme</button>
             <p class="linkedClass">Ya tengo cuenta</p>
 
