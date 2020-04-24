@@ -88,6 +88,88 @@ firebase.initializeApp(firebaseConfig);
 
 
 
+// Función para comprobar si el usuario tiene sesion iniciada
+
+function searchUser() {
+    // Retornamos una promesa con resolve si hay un usuario con sesion iniciada o reject si no hay usuario con sesion iniciada
+
+    return new Promise((resolve) => {
+
+        // Comprobar que el usuario está registrado
+        firebase.auth().onAuthStateChanged(user => {
+
+            // Si esta conectado nos devuelve el nombre del usuario
+            if (user) {
+
+                firebase.database().ref('usersSafim').on('value', (snapshot) => {
+
+                    snapshot.forEach((childSnapshot) => {
+
+                        if (childSnapshot.key === firebase.auth().currentUser.uid) {
+                            resolve(childSnapshot.val().User)
+                        }
+                    })
+                })
+
+            } else {
+                resolve("no user")
+
+            }
+        })
+
+    })
+}
+
+// Segun el resultado de la promesa actuara de dos formas diferentes
+//Si el usuario si esta registrado
+searchUser()
+    .then(result => {
+
+        if (result !== "no user") {
+            // Mostrar el nombre de usuario registrado y hacer aparecer y desaparecer las secciones segun se necesite
+
+            let sucessMessg = document.createElement('h3');
+
+            sucessMessg.innerText = result + " bienvenido";
+
+
+            document.getElementById('login').style.opacity = "0";
+
+            setTimeout(() => {
+
+                document.getElementById('login').classList.add('hidden');
+
+                document.querySelector('main').appendChild(sucessMessg);
+
+                document.querySelector('header').classList.remove('hidden');
+
+                document.querySelector('header').style.animation = "1s cubic-bezier(0, 0, 0, 1.15) 0s 1 normal forwards running opacityHeader";
+
+            }, 800)
+        } else {
+
+            //Si el usuario no esta registrado
+
+            // Quitar el sppiner de login y visualizar la cabecera y los botones y login y registro
+            document.getElementById('login').style.opacity = "0";
+
+            setTimeout(() => {
+                document.getElementById('login').classList.add('hidden');
+
+                document.querySelector('header').style.animation = "1s cubic-bezier(0, 0, 0, 1.15) 0s 1 normal forwards running opacityHeader";
+
+                document.querySelector('header').classList.remove('hidden')
+
+                document.getElementById('initSection').classList.remove('hidden')
+
+                document.getElementById('initSection').style.animation = "1s cubic-bezier(0, 0, 0, 1.15) 0s 1 normal forwards running opacityHeader";
+
+            }, 1000)
+        }
+
+
+    })
+
 // Registro de usuarios en Firebase / Authentication
 
 // Botón de registro

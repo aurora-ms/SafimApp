@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Safim App</title>
     <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/spinner.css">
+
     <link rel="shortcut icon" href="src/img/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Oxanium:400,500,600,700,800 display=swap" rel="stylesheet">
 
@@ -19,12 +21,21 @@
 
 </head>
 <body>
-    <header class="flex">
+    <section id="login" class="flex">
+
+        <div class="sbl-circ-ripple"></div>
+        <h4>Safim App</h4>
+        <div id="mydiv" style="color: white;"></div>
+    </section>
+
+
+    <header class="flex hidden">
         <img id="logoApp" src="src/img/logo_app.png" alt="">
         <h1>Safim App</h1>
     </header>
+
     <main>
-        <section id="initSection" class="flex ">
+        <section id="initSection" class="flex hidden ">
 
             <button id="loginButton" class="gnralButtonStyle">Iniciar sesión</button>
             <button id="registerButton" class="gnralButtonStyle blueStyleButton">Regístrate</button>
