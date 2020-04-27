@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Safim App</title>
+    <title>Films App</title>
+
     <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/style_menu.css">
     <link rel="stylesheet" href="src/css/spinner.css">
 
     <link rel="shortcut icon" href="src/img/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Oxanium:400,500,600,700,800 display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&display=swap"rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="https://unpkg.com/page/page.js"></script>
+
 
     <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
 
@@ -16,10 +25,9 @@
 
     <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-database.js"></script>
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 
 </head>
+
 <body>
     <section id="login" class="flex">
 
@@ -34,8 +42,36 @@
         <h1>Safim App</h1>
     </header>
 
+
+
+
+    <section id="menuSection" class="flex hidden">
+        <div id="user_select"></div>
+        <div id="menuPrincipal">
+            <div class="hamburger">
+                <div class="_layer -top"></div>
+                <div class="_layer -mid"></div>
+                <div class="_layer -bottom"></div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <nav id="princMenu" class=" menuppal " style="opacity: 0;">
+
+        <ul>
+            <a href="./buscador"><li>Buscador</li></a>
+            <a href="./peliculas_guardadas"><li style="
+                border-top: 1px solid #021427;
+                border-bottom: 1px solid #021427;
+            ">Guardadas</li></a>
+            <a href="./"> <li id="closeSession">Cerrar sesión</li></a>
+        </ul>
+    </nav>
+
     <main>
-        <section id="initSection" class="flex hidden ">
+        <section id="initSection" class="flex hidden">
 
             <button id="loginButton" class="gnralButtonStyle">Iniciar sesión</button>
             <button id="registerButton" class="gnralButtonStyle blueStyleButton">Regístrate</button>
@@ -88,7 +124,16 @@
             <p class="linkedClass">Ya tengo cuenta</p>
 
         </section>
+
     </main>
+
+
+    <script src="https://unpkg.com/page/page.js"></script>
+
+    <script src="src/js/script.js" type="module"></script>
+
+
 </body>
-<script src="src/js/script.js" type="module"></script>
+
+
 </html>

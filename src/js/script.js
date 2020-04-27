@@ -1,73 +1,31 @@
-import {initAnimation } from "./animation.js"
+page.base('');
+page('/buscador', searchFilms);
+page('/peliculas_guardadas', savedFilms);
+page();
 
 
-// Funcionalidades iniciales de la app
 
-// 1 Acciones al pulsar el inicio de sesión:
-// 1.1- Ocultar los botones de inicio de sesión y de registro para mostrar la pestaña de incio de sesión 
-
-// 1.2- Botón de inicio de sesión
+import { initAnimation } from "./animation.js"
+import { toggleMenu } from "./menu_function.js"
 
 
-var loginButton = document.getElementById('loginButton');
 
-loginButton.addEventListener('click', () => {
+function savedFilms() {
+    console.log("pelis guardadas")
+    console.log(window.location)
+}
 
-    //Ocultar Section de botones principales
-    document.getElementById('initSection').classList.add('hidden');
+function searchFilms() {
+    console.log("inicio pelis")
 
-    //Mostrar Popup de inicio de sesión
-    document.getElementById('loginSection').classList.remove('hidden');
-
-})
-
-
-// 1.3- Una vez dado a iniciar sesión quieres ir al apartado de registrarte
-
-var auxlrRegisterButton = document.querySelector('#loginSection  p');
-
-auxlrRegisterButton.addEventListener('click', () => {
-
-    //Ocultar Popup de inicio de sesión
-    document.getElementById('loginSection').classList.add('hidden');
-
-    //Mostrar Popup de registro
-    document.getElementById('registerSection').classList.remove('hidden');
+}
 
 
-})
 
 
-// 2 Acciones al pulsar el registro:
-// 2.1- Ocultar los botones de inicio de sesión y de registro para mostrar la pestaña de registro
+var menu = document.querySelector('.hamburger');
+menu.addEventListener('click', toggleMenu, false);
 
-
-var registerButton = document.getElementById('registerButton');
-
-registerButton.addEventListener('click', () => {
-
-    //Ocultar Section de botones principales
-    document.getElementById('initSection').classList.add('hidden');
-
-    //Mostrar Popup de registro
-    document.getElementById('registerSection').classList.remove('hidden');
-
-})
-
-
-// 2.2- Una vez dado a registrarme quieres ir al apartado de inicio de sesion
-
-var auxlrLoginButton = document.querySelector('#registerSection  p');
-
-auxlrLoginButton.addEventListener('click', () => {
-
-    //Ocultar Popup de registro
-    document.getElementById('registerSection').classList.add('hidden');
-
-    //Mostrar Popup de inicio de sesión
-    document.getElementById('loginSection').classList.remove('hidden');
-
-})
 
 
 
@@ -139,11 +97,17 @@ searchUser()
 
                 document.getElementById('login').classList.add('hidden');
 
-                document.querySelector('main').appendChild(sucessMessg);
+                document.querySelector('#user_select').appendChild(sucessMessg);
 
                 document.querySelector('header').classList.remove('hidden');
 
                 document.querySelector('header').style.animation = "1s cubic-bezier(0, 0, 0, 1.15) 0s 1 normal forwards running opacityHeader";
+
+                document.getElementById('menuSection').classList.remove('hidden');
+
+                document.getElementById('menuSection').style.animation = "1.5s cubic-bezier(0, 0, 0, 1.15) 0s 1 normal forwards running translateX";
+
+                
 
             }, 800)
         } else {
@@ -170,11 +134,89 @@ searchUser()
 
     })
 
+
+
+//  Acciones al pulsar el inicio de sesión:
+// 1- Ocultar los botones de inicio de sesión y de registro para mostrar la pestaña de incio de sesión 
+
+// 1.1- Botón de inicio de sesión
+
+
+
+var loginButton = document.getElementById('loginButton');
+
+loginButton.addEventListener('click', () => {
+
+    //Ocultar Section de botones principales
+    document.getElementById('initSection').classList.add('hidden');
+
+    //Mostrar Popup de inicio de sesión
+    document.getElementById('loginSection').classList.remove('hidden');
+
+})
+
+
+// 1.2- Una vez dado a iniciar sesión quieres ir al apartado de registrarte
+
+var auxlrRegisterButton = document.querySelector('#loginSection  p');
+
+auxlrRegisterButton.addEventListener('click', () => {
+
+    //Ocultar Popup de inicio de sesión
+    document.getElementById('loginSection').classList.add('hidden');
+
+    //Mostrar Popup de registro
+    document.getElementById('registerSection').classList.remove('hidden');
+
+
+})
+
+
+//  Acciones al pulsar el registro:
+// 1- Ocultar los botones de inicio de sesión y de registro para mostrar la pestaña de registro
+
+
+var registerButton = document.getElementById('registerButton');
+
+registerButton.addEventListener('click', () => {
+
+    //Ocultar Section de botones principales
+    document.getElementById('initSection').classList.add('hidden');
+
+    //Mostrar Popup de registro
+    document.getElementById('registerSection').classList.remove('hidden');
+
+})
+
+
+// 1.2- Una vez dado a registrarme quieres ir al apartado de inicio de sesion
+
+var auxlrLoginButton = document.querySelector('#registerSection  p');
+
+auxlrLoginButton.addEventListener('click', () => {
+
+    //Ocultar Popup de registro
+    document.getElementById('registerSection').classList.add('hidden');
+
+    //Mostrar Popup de inicio de sesión
+    document.getElementById('loginSection').classList.remove('hidden');
+
+})
+
+
+// Registro y login de usuarios en Firebase / Authentication
+
+// Variables de mensaje de error de la parte de registro y de login
+var errorMessageEmail = document.getElementById('errorMessageEmail');
+var errorMessagePassword = document.getElementById('errorMessagePassword');
+
+
+
 // Registro de usuarios en Firebase / Authentication
 
 // Botón de registro
-
 var registerButtonSection = document.getElementById('registerButtonSection')
+
 
 registerButtonSection.addEventListener('click', () => {
 
@@ -188,8 +230,7 @@ registerButtonSection.addEventListener('click', () => {
 
     // Variables de mensaje de error de la parte de registro
     var errorMessageName = document.getElementById('errorMessageName');
-    var errorMessageEmail = document.getElementById('errorMessageEmail');
-    var errorMessagePassword = document.getElementById('errorMessagePassword');
+
 
     if (userNameRegtr === "") {
 
@@ -216,8 +257,12 @@ registerButtonSection.addEventListener('click', () => {
                     Email: userEmailRegtr,
                 });
 
+                // Borrado de mensajes de error en la section de registro
+                errorMessageEmail.classList.add('hidden');
+                errorMessagePassword.classList.add('hidden');
+
                 // Llamada a la función que realiza la animación y aviso al usuario de que se ha registrado con éxito
-                initAnimation(userNameRegtr, selectedSection, " Registrado con éxito")
+                initAnimation(userNameRegtr, selectedSection, " registrado con éxito")
 
 
             })
@@ -234,6 +279,8 @@ registerButtonSection.addEventListener('click', () => {
                     errorMessageEmail.innerText = 'Correo inválido';
                     errorMessageEmail.classList.remove('hidden');
 
+                } else {
+                    errorMessageEmail.classList.add('hidden');
                 }
 
                 if (error.code === 'auth/weak-password') {
@@ -241,7 +288,6 @@ registerButtonSection.addEventListener('click', () => {
                     errorMessagePassword.classList.remove('hidden');
                 }
 
-                console.log(error.code)
             });
     }
 
@@ -270,8 +316,15 @@ loginButtonSection.addEventListener('click', () => {
                     if (childSnapshot.val().Email === userEmail) {
                         var userLogin = childSnapshot.val().User
 
+                        //Quitar los mensajes de error de la caja de login
+                        errorMessageEmail.classList.add('hidden');
+                        errorMessagePassword.classList.add('hidden');
+
                         // Llamada a la función que realiza la animación y aviso al usuario de que se ha registrado con éxito
-                        initAnimation(userLogin, selectedSection, " bienvenido")
+                        initAnimation(userLogin, selectedSection, " bienvenido");
+                        document.getElementById('menuSection').classList.remove('hidden');
+
+                        document.getElementById('menuSection').style.animation = "1.5s cubic-bezier(0, 0, 0, 1.15) 0s 1 normal forwards running translateX";
 
                     }
 
@@ -286,20 +339,33 @@ loginButtonSection.addEventListener('click', () => {
 
             if (error.code === "auth/user-not-found") {
 
-                console.log("Usuario no encontrado")
+                errorMessageEmail.innerText = 'Usuario no encontrado';
+                errorMessageEmail.classList.remove('hidden');
 
-            } else if (error.code === "auth/user-not-found") {
+                selectedSection.insertBefore(errorMessageEmail, selectedSection.childNodes[2]);
 
-                console.log("Email erroneo")
+
+            } else if (error.code === "auth/invalid-email") {
+                errorMessageEmail.innerText = 'Email erroneo';
+                errorMessageEmail.classList.remove('hidden');
+
+                selectedSection.insertBefore(errorMessageEmail, selectedSection.childNodes[2]);
+
+
+            }
+            else if (errorMessageEmail.classList.contains('hidden') === false) {
+                selectedSection.removeChild(errorMessageEmail);
+
             }
 
             if (error.code === "auth/wrong-password") {
-                console.log("Contraseña erronea")
+                errorMessagePassword.innerText = 'Contraseña erronea';
+                errorMessagePassword.classList.remove('hidden');
+
+                selectedSection.insertBefore(errorMessagePassword, selectedSection.childNodes[4]);
 
             }
 
-            var errorCode = error.code;
-            console.log(errorCode)
 
 
             // ...
@@ -353,3 +419,14 @@ googleLogin.addEventListener('click', () => {
     });
 })
 
+// Cerrar sesión
+document.getElementById('closeSession').addEventListener('click', salir)
+
+function salir() {
+
+    firebase.auth().signOut().then(function () {
+        console.log("Sign-out successful")
+    }).catch(function (error) {
+        console.log(" An error happened")
+    });
+}
