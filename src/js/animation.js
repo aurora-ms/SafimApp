@@ -2,16 +2,16 @@
 
 export  function initAnimation (userName, section, mensaje) {
 
-    var sucessMessg = document.createElement('h3');
+    let sucessMessg = document.createElement('h3');
 
     sucessMessg.innerText = userName + mensaje;
 
     section.style.transform = "translateY(-521px)";
 
-    setInterval(() => {
-        section.style.display = "none"
-        document.querySelector('main').appendChild(sucessMessg);
-
+    setTimeout(() => {
+        section.style.display = "none";
+        document.querySelector('nav').classList.remove('hidden')
+        document.querySelector('#user_select').appendChild(sucessMessg);
     }, 2000);
 
 }
