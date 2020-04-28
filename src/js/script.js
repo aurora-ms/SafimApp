@@ -7,7 +7,7 @@ page();
 
 import { initAnimation } from "./animation.js"
 import { toggleMenu } from "./menu_function.js"
-import {firebaseConfig} from "./firebase.js"
+import {apiKeyUser} from "./firebase.js"
 
 
 function savedFilms() {
@@ -27,6 +27,18 @@ var menu = document.querySelector('.hamburger');
 menu.addEventListener('click', toggleMenu, false);
 
 
+// Vinculación con firebase 
+
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: apiKeyUser,
+    authDomain: "filmsapp-ad31a.firebaseapp.com",
+    databaseURL: "https://filmsapp-ad31a.firebaseio.com",
+    projectId: "filmsapp-ad31a",
+    storageBucket: "filmsapp-ad31a.appspot.com",
+    messagingSenderId: "856607715556",
+    appId: "1:856607715556:web:9a1f6c733102458747fcf1"
+};
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
