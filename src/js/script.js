@@ -1,5 +1,5 @@
 page.base('');
-page('/buscador', searchFilms);
+page('/inicio', searchFilms);
 page('/peliculas_guardadas', savedFilms);
 page();
 
@@ -7,18 +7,9 @@ page();
 
 import { initAnimation } from "./animation.js"
 import { toggleMenu } from "./menu_function.js"
-import {apiKeyUser} from "./firebase.js"
+import {apiKeyUser} from "./apis.js"
+import {apiKeyFilms} from "./apis.js"
 
-
-function savedFilms() {
-    console.log("pelis guardadas")
-    console.log(window.location)
-}
-
-function searchFilms() {
-    console.log("inicio pelis")
-
-}
 
 
 
@@ -89,7 +80,6 @@ searchUser()
 
             sucessMessg.innerText = result + " bienvenido";
 
-
             document.getElementById('login').style.opacity = "0";
 
             setTimeout(() => {
@@ -105,8 +95,9 @@ searchUser()
                 document.getElementById('menuSection').classList.remove('hidden');
 
                 document.getElementById('menuSection').style.animation = "1.5s cubic-bezier(0, 0, 0, 1.15) 0s 1 normal forwards running translateX";
+               
+                document.getElementById('searchfilms').classList.remove('hidden')
 
-                
 
             }, 800)
         } else {
@@ -428,4 +419,16 @@ function salir() {
     }).catch(function (error) {
         console.log(" An error happened")
     });
+}
+
+
+
+   function searchFilms() {
+    document.getElementById('searchfilms').classList.remove('hidden')
+}
+
+
+function savedFilms() {
+    document.getElementById('searchfilms').classList.add('hidden')
+
 }

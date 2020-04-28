@@ -228,6 +228,43 @@ div#separador {
     font-weight: 300;
 }
 
+
+section#searchfilms {
+    min-width: 300px;
+    width: 20%;
+    margin: 40px auto;
+}
+
+#searchfilms div {
+    background: #3273b8;
+    height: 60px;
+    width: 16%;
+    min-width: 50px;
+    align-items: center;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    cursor: pointer;
+    transition: all 1s ease;
+}
+
+#searchfilms div:hover {
+    background: #224b77;
+}
+
+
+input#filmName {
+    width: 75%;
+    padding-left: 10px;
+    border: none;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+#searchfilms i {
+    color: white;
+    font-size: 35px;
+}
+
 .flex {
     display: flex;
     flex-wrap: wrap;
