@@ -432,3 +432,8 @@ function savedFilms() {
     document.getElementById('searchfilms').classList.add('hidden')
 
 }
+
+
+function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };   
+
+document.addEventListener ("keydown", disableF5);
