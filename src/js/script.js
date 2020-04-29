@@ -437,3 +437,41 @@ function savedFilms() {
 function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };   
 
 document.addEventListener ("keydown", disableF5);
+
+
+
+// Buscado de peliculas en api 
+
+document.getElementById('searchButton').addEventListener('click', searchFilmsApi);
+
+
+function searchFilmsApi() {
+    const content = document.getElementById('newFilm');
+    var filmName = document.getElementById('filmName').value;
+
+    var url = 'http://www.omdbapi.com/?apikey=' + apiKeyFilms + '&s=' + filmName + '&page=1';
+
+    fetch(url)
+
+        .then(response => response.json())
+
+        .then(data => {
+            data.Search.forEach(filmsInd => {
+
+                var rendered = Mustache.render(document.getElementById('templateNew').innerHTML, { filmsInd, Title: filmsInd.Title, image: filmsInd.Poster, Year: filmsInd.Year });
+                content.innerHTML += rendered;
+
+            })
+
+            var addFilmButton = document.getElementsByClassName('addFilmButton');
+
+            for (let i = 0; i < addFilmButton.length; i++) {
+                addFilmButton[i].addEventListener('click', () => addFilms(data.Search[i]))
+            }
+
+        })
+
+        .catch(function (error) {
+            console.log(error.message);
+        });
+};
