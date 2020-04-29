@@ -97,7 +97,7 @@ searchUser()
                 document.getElementById('menuSection').style.animation = "1.5s cubic-bezier(0, 0, 0, 1.15) 0s 1 normal forwards running translateX";
                
                 document.getElementById('searchfilms').classList.remove('hidden')
-
+                page.redirect('/inicio');
 
             }, 800)
         } else {
