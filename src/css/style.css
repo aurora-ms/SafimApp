@@ -3,7 +3,7 @@ body {
     font-family: 'Oxanium';
     width: 100%;
     background-color: hsl(210, 91%, 8%);
-    overflow: hidden;
+    overflow: hidden visible;
 }
 
 header {
@@ -25,7 +25,6 @@ header {
 
 main {
     padding: 20px;
-    overflow: hidden;
 }
 
 section#initSection {
@@ -263,6 +262,48 @@ input#filmName {
 #searchfilms i {
     color: white;
     font-size: 35px;
+}
+
+
+
+section#newFilm {
+    padding: 0 30px;
+}
+
+div.newFilms {
+    width: 300px;
+    margin: 30px 20px;
+    background: white;
+    border-radius: 0 0 20px 20px;
+    position: relative;
+    height: 640px;
+}
+
+.newFilms img {
+    height: 447px;
+    width: 300px;
+}
+
+.newFilms div {
+    padding: 20px;
+}
+
+.newFilms h2 {
+    margin: 0;
+}
+
+.newFilms h3 {
+    color: #3273b8;
+    font-size: 16px;
+    margin-top: 4px;
+    font-family: 'Roboto';
+}
+
+.newFilms button {
+    position: absolute;
+    bottom: 0px;
+    margin: 20px;
+    width: 260px;
 }
 
 .flex {

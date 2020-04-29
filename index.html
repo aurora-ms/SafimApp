@@ -12,7 +12,9 @@
 
     <link rel="shortcut icon" href="src/img/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Oxanium:400,500,600,700,800 display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&display=swap"rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -61,12 +63,18 @@
     <nav id="princMenu" class=" menuppal " style="opacity: 0;">
 
         <ul>
-            <a href="./inicio"><li>Buscador</li></a>
-            <a href="./peliculas_guardadas"><li style="
+            <a href="./inicio">
+                <li>Buscador</li>
+            </a>
+            <a href="./peliculas_guardadas">
+                <li style="
                 border-top: 1px solid #021427;
                 border-bottom: 1px solid #021427;
-            ">Guardadas</li></a>
-            <a href="./"> <li id="closeSession">Cerrar sesión</li></a>
+            ">Guardadas</li>
+            </a>
+            <a href="./">
+                <li id="closeSession">Cerrar sesión</li>
+            </a>
         </ul>
     </nav>
 
@@ -87,7 +95,7 @@
                 <input id="userPassword" type="password" placeholder="Contraseña">
             </div>
             <button id="loginButtonSection" class="gnralButtonStyle blueStyleButton">Iniciar sesión</button>
-            <div id="separador" class="flex" >
+            <div id="separador" class="flex">
                 <hr>
                 <h6>o</h6>
                 <hr>
@@ -113,7 +121,7 @@
                 <span id="errorMessagePassword" class="hidden errorMsStyle"></span>
             </div>
             <button id="registerButtonSection" class="gnralButtonStyle blueStyleButton">Registrarme</button>
-            <div id="separador" class="flex" >
+            <div id="separador" class="flex">
                 <hr>
                 <h6>o</h6>
                 <hr>
@@ -126,16 +134,30 @@
         </section>
 
         <section id="searchfilms" class="hidden flex ">
-            <div class="flex"><i class="material-icons">search</i></div>
+            <div class="flex" id="searchButton"><i class="material-icons">search</i></div>
             <input type="text" id="filmName" placeholder="Buscar">
         </section>
+        <section id="newFilm" class="flex"></section>
 
     </main>
 
+    <template id="templateNew" type="x-tmpl-mustache">
+        <div class="newFilms">
+            <img src="{{image}}" alt="">
+            <div>
+                <h2>{{Title}}</h2>
+                <h3>{{Year}}</h3>
+
+            </div>
+            <button class="addFilmButton gnralButtonStyle">Añadir</button>
+        </div>
+    </template>
 
     <script src="https://unpkg.com/page/page.js"></script>
 
     <script src="src/js/script.js" type="module"></script>
+
+    <script src="https://unpkg.com/mustache@latest"></script>
 
 
 </body>
