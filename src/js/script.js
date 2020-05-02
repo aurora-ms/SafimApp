@@ -457,6 +457,7 @@ function searchFilmsApi() {
         .then(response => response.json())
 
         .then(data => {
+
             data.Search.forEach(filmsInd => {
 
                 var rendered = Mustache.render(document.getElementById('templateNew').innerHTML, { filmsInd, Title: filmsInd.Title, image: filmsInd.Poster, Year: filmsInd.Year });
@@ -478,7 +479,7 @@ function searchFilmsApi() {
 
             for (let i = 0; i < addFilmButton.length; i++) {
                 //Función para añadir la pelicula a base de datos
-                addFilmButton[i].addEventListener('click', () => addFilms(data.Search[i]))
+                addFilmButton[i].addEventListener('click', () => addFilms(data.Search[i], buttonSeeFilm[i]))
 
 
 
@@ -516,14 +517,14 @@ function searchFilmsApi() {
 
                     buttonSeeFilm[position].setAttribute('aria-pressed', !clicked);
 
-                    
 
-                    if(clicked === false){
-                        
+
+                    if (clicked === false) {
+
                         msgSeeFilm[position].innerHTML = "¡Vista!"
                     }
                     else {
-                       msgSeeFilm[position].innerHTML = "Marcar como vista" 
+                        msgSeeFilm[position].innerHTML = "Marcar como vista"
                     }
 
                     imgSeeFilm[position].setAttribute('src', '/src/img/seefilm_ico.png');
@@ -542,3 +543,33 @@ function searchFilmsApi() {
 };
 
 
+
+
+
+
+function addFilms(indvFilms, markSee) {
+    var indvName = indvFilms.Title.replace(" ", "+");
+    let clicked = markSee.getAttribute("aria-pressed") 
+    var indvUrl = 'http://www.omdbapi.com/?apikey=' + apiKeyFilms + '&t=' + indvName + '&plot=full';
+
+    fetch(indvUrl)
+        .then(response => response.json())
+
+        .then(data => {
+            var refMovies = firebase.database().ref('usersSafim/' + firebase.auth().currentUser.uid + "/savedFiles/" + data.imdbID);
+
+
+            refMovies.set({
+                Poster: data.Type,
+                Titulo: data.Title,
+                Fecha: data.Year,
+                País: data.Country,
+                País: data.Released,
+                Puntuacion: data.imdbRating,
+                Vista: clicked
+            });
+
+
+
+        })
+}
