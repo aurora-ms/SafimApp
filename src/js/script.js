@@ -7,8 +7,8 @@ page();
 
 import { initAnimation } from "./animation.js"
 import { toggleMenu } from "./menu_function.js"
-import {apiKeyUser} from "./apis.js"
-import {apiKeyFilms} from "./apis.js"
+import { apiKeyUser } from "./apis.js"
+import { apiKeyFilms } from "./apis.js"
 
 
 
@@ -95,7 +95,7 @@ searchUser()
                 document.getElementById('menuSection').classList.remove('hidden');
 
                 document.getElementById('menuSection').style.animation = "1.5s cubic-bezier(0, 0, 0, 1.15) 0s 1 normal forwards running translateX";
-               
+
                 document.getElementById('searchfilms').classList.remove('hidden')
                 page.redirect('/inicio');
 
@@ -423,7 +423,7 @@ function salir() {
 
 
 
-   function searchFilms() {
+function searchFilms() {
     document.getElementById('searchfilms').classList.remove('hidden')
 }
 
@@ -434,15 +434,16 @@ function savedFilms() {
 }
 
 
-function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };   
+function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
 
-document.addEventListener ("keydown", disableF5);
+document.addEventListener("keydown", disableF5);
 
 
 
 // Buscado de peliculas en api 
 
 document.getElementById('searchButton').addEventListener('click', searchFilmsApi);
+
 
 
 function searchFilmsApi() {
@@ -463,10 +464,74 @@ function searchFilmsApi() {
 
             })
 
+            //Boton de añadir pelicula
             var addFilmButton = document.getElementsByClassName('addFilmButton');
 
+            //Boton de marcar pelicula como vista no vista
+            var buttonSeeFilm = document.querySelectorAll("#seeFilms > div")
+
+            // Imagen de ojos visto no visto
+            var imgSeeFilm = document.querySelectorAll("#seeFilms > div > img")
+
+            //Mensaje de vista no vista
+            var msgSeeFilm = document.querySelectorAll("#seeFilms > span")
+
             for (let i = 0; i < addFilmButton.length; i++) {
+                //Función para añadir la pelicula a base de datos
                 addFilmButton[i].addEventListener('click', () => addFilms(data.Search[i]))
+
+
+
+
+
+                //Funciones para el marcado de pelicula
+                buttonSeeFilm[i].addEventListener('mouseover', () => funcMouseover(i))
+
+                function funcMouseover(position) {
+
+                    imgSeeFilm[position].setAttribute('src', '/src/img/seefilm_ico.png')
+                }
+
+                buttonSeeFilm[i].addEventListener('mouseout', () => funcMouseout(i))
+
+                function funcMouseout(position) {
+
+                    let clicked = buttonSeeFilm[position].getAttribute('aria-pressed');
+                    if (clicked === "false") {
+                        imgSeeFilm[position].setAttribute('src', '/src/img/noseefilm_ico.png')
+                    } else {
+                        imgSeeFilm[position].setAttribute('src', '/src/img/seefilm_ico.png')
+                    }
+                }
+
+
+
+                buttonSeeFilm[i].addEventListener('click', () => funcMouseClick(i))
+
+                function funcMouseClick(position) {
+
+                    let clicked = buttonSeeFilm[position].getAttribute("aria-pressed") === "true";
+
+
+
+                    buttonSeeFilm[position].setAttribute('aria-pressed', !clicked);
+
+                    
+
+                    if(clicked === false){
+                        
+                        msgSeeFilm[position].innerHTML = "¡Vista!"
+                    }
+                    else {
+                       msgSeeFilm[position].innerHTML = "Marcar como vista" 
+                    }
+
+                    imgSeeFilm[position].setAttribute('src', '/src/img/seefilm_ico.png');
+
+
+
+                }
+
             }
 
         })
@@ -475,3 +540,5 @@ function searchFilmsApi() {
             console.log(error.message);
         });
 };
+
+
