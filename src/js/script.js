@@ -457,84 +457,108 @@ function searchFilmsApi() {
         .then(response => response.json())
 
         .then(data => {
-
-            data.Search.forEach(filmsInd => {
-
-                var rendered = Mustache.render(document.getElementById('templateNew').innerHTML, { filmsInd, Title: filmsInd.Title, image: filmsInd.Poster, Year: filmsInd.Year });
-                content.innerHTML += rendered;
-
-            })
-
-            //Boton de añadir pelicula
-            var addFilmButton = document.getElementsByClassName('addFilmButton');
-
-            //Boton de marcar pelicula como vista no vista
-            var buttonSeeFilm = document.querySelectorAll("#seeFilms > div")
-
-            // Imagen de ojos visto no visto
-            var imgSeeFilm = document.querySelectorAll("#seeFilms > div > img")
-
-            //Mensaje de vista no vista
-            var msgSeeFilm = document.querySelectorAll("#seeFilms > span")
-
-            for (let i = 0; i < addFilmButton.length; i++) {
-                //Función para añadir la pelicula a base de datos
-                addFilmButton[i].addEventListener('click', () => addFilms(data.Search[i], buttonSeeFilm[i]))
+            checkFilmsSaved(data.Search)
+                .then((seeFilms) => {
 
 
+                    seeFilms.forEach(filmsInd => {
+
+                        var rendered = Mustache.render(document.getElementById('templateNew').innerHTML, { filmsInd, Title: filmsInd.Title, image: filmsInd.Poster, Year: filmsInd.Year, Vista: "¡Vista!", Button: "Guardada" });
+                        content.innerHTML += rendered;
+
+                    })
+
+
+                })
+
+
+            checkFilmsNoSaved(data.Search)
+
+                .then((respuesta) => {
+
+
+                    respuesta.forEach(filmsInd => {
+
+                        var rendered = Mustache.render(document.getElementById('templateNew').innerHTML, { filmsInd, Title: filmsInd.Title, image: filmsInd.Poster, Year: filmsInd.Year, Vista: "Marcar como vista", Button: "Añadir" });
+                        content.innerHTML += rendered;
+
+                    })
+
+                    //Boton de añadir pelicula
+                    var addFilmButton = document.getElementsByClassName('addFilmButton');
+
+                    //Boton de marcar pelicula como vista no vista
+                    var buttonSeeFilm = document.querySelectorAll("#seeFilms > div")
+
+                    // Imagen de ojos visto no visto
+                    var imgSeeFilm = document.querySelectorAll("#seeFilms > div > img")
+
+                    //Mensaje de vista no vista
+                    var msgSeeFilm = document.querySelectorAll("#seeFilms > span")
 
 
 
-                //Funciones para el marcado de pelicula
-                buttonSeeFilm[i].addEventListener('mouseover', () => funcMouseover(i))
+                    for (let i = 0; i < addFilmButton.length; i++) {
 
-                function funcMouseover(position) {
 
-                    imgSeeFilm[position].setAttribute('src', '/src/img/seefilm_ico.png')
-                }
+                        if (msgSeeFilm[i].innerText === "¡Vista!") {
 
-                buttonSeeFilm[i].addEventListener('mouseout', () => funcMouseout(i))
+                            buttonSeeFilm[i].setAttribute('aria-pressed', true);
+                            imgSeeFilm[i].setAttribute('src', '/src/img/seefilm_ico.png')
 
-                function funcMouseout(position) {
+                        }
 
-                    let clicked = buttonSeeFilm[position].getAttribute('aria-pressed');
-                    if (clicked === "false") {
-                        imgSeeFilm[position].setAttribute('src', '/src/img/noseefilm_ico.png')
-                    } else {
+                        //Función para añadir la pelicula a base de datos
+                        addFilmButton[i].addEventListener('click', () => addFilms(data.Search[i], buttonSeeFilm[i]))
+
+                        //Funciones para el marcado de pelicula
+                        buttonSeeFilm[i].addEventListener('mouseover', () => funcMouseover(i))
+                        buttonSeeFilm[i].addEventListener('mouseout', () => funcMouseout(i))
+
+                        buttonSeeFilm[i].addEventListener('click', () => funcMouseClick(i))
+
+                    }
+
+                    function funcMouseover(position) {
+
                         imgSeeFilm[position].setAttribute('src', '/src/img/seefilm_ico.png')
                     }
-                }
 
 
 
-                buttonSeeFilm[i].addEventListener('click', () => funcMouseClick(i))
+                    function funcMouseout(position) {
 
-                function funcMouseClick(position) {
-
-                    let clicked = buttonSeeFilm[position].getAttribute("aria-pressed") === "true";
-
-
-
-                    buttonSeeFilm[position].setAttribute('aria-pressed', !clicked);
-
-
-
-                    if (clicked === false) {
-
-                        msgSeeFilm[position].innerHTML = "¡Vista!"
-                    }
-                    else {
-                        msgSeeFilm[position].innerHTML = "Marcar como vista"
+                        let clicked = buttonSeeFilm[position].getAttribute('aria-pressed');
+                        if (clicked === "false") {
+                            imgSeeFilm[position].setAttribute('src', '/src/img/noseefilm_ico.png')
+                        } else {
+                            imgSeeFilm[position].setAttribute('src', '/src/img/seefilm_ico.png')
+                        }
                     }
 
-                    imgSeeFilm[position].setAttribute('src', '/src/img/seefilm_ico.png');
+
+                    function funcMouseClick(position) {
+
+                        let clicked = buttonSeeFilm[position].getAttribute("aria-pressed") === "true";
+
+                        buttonSeeFilm[position].setAttribute('aria-pressed', !clicked);
+
+                        if (clicked === false) {
+
+                            msgSeeFilm[position].innerHTML = "¡Vista!"
+                        }
+                        else {
+                            msgSeeFilm[position].innerHTML = "Marcar como vista"
+                        }
+
+                        imgSeeFilm[position].setAttribute('src', '/src/img/seefilm_ico.png');
 
 
 
-                }
+                    }
 
-            }
 
+                })
         })
 
         .catch(function (error) {
@@ -546,10 +570,11 @@ function searchFilmsApi() {
 
 
 
+// Funcioon para el guardado de peliculas en la base de datos
 
 function addFilms(indvFilms, markSee) {
     var indvName = indvFilms.Title.replace(" ", "+");
-    let clicked = markSee.getAttribute("aria-pressed") 
+    let clicked = markSee.getAttribute("aria-pressed")
     var indvUrl = 'http://www.omdbapi.com/?apikey=' + apiKeyFilms + '&t=' + indvName + '&plot=full';
 
     fetch(indvUrl)
@@ -572,4 +597,45 @@ function addFilms(indvFilms, markSee) {
 
 
         })
+
+        .catch(function (error) {
+            console.log(error.message);
+        });
+}
+
+
+// Función para filtrar las peliculas no vistas
+function checkFilmsNoSaved(datosFilms) {
+
+    return new Promise((resolve) => {
+        var refData = firebase.database().ref('usersSafim/' + firebase.auth().currentUser.uid + "/savedFiles");
+
+
+        refData.on('value', (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                let finalArray = datosFilms.filter(datosFilm => datosFilm.imdbID !== childSnapshot.key);
+                resolve(finalArray)
+
+            })
+
+        })
+    })
+}
+
+// Función para filtrar las peliculas vistas
+
+function checkFilmsSaved(datosFilms) {
+
+    return new Promise((resolve) => {
+        var refData = firebase.database().ref('usersSafim/' + firebase.auth().currentUser.uid + "/savedFiles");
+
+        refData.on('value', (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                let finalArray = datosFilms.filter(datosFilm => datosFilm.imdbID === childSnapshot.key);
+                resolve(finalArray)
+
+            })
+
+        })
+    })
 }
