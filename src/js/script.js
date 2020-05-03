@@ -124,6 +124,10 @@ searchUser()
 
     })
 
+    .catch(function (error) {
+        console.log(error.message);
+    });
+
 
 
 //  Acciones al pulsar el inicio de sesión:
@@ -430,7 +434,18 @@ function searchFilms() {
 
 function savedFilms() {
     document.getElementById('searchfilms').classList.add('hidden')
+    var refData = firebase.database().ref('usersSafim/' + firebase.auth().currentUser.uid + "/savedFiles");
 
+    refData.on('value', (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const content = document.getElementById('savedFilm');
+            console.log(childSnapshot.val().Titulo)
+
+            // var rendered = Mustache.render(document.getElementById('templateSaved').innerHTML, { filmsInd, Title: filmsInd.Title, image: filmsInd.Poster, Year: filmsInd.Year, Vista: "¡Vista!", Button: "Guardada" });
+            // content.innerHTML += rendered;
+
+        })
+    })
 }
 
 

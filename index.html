@@ -135,6 +135,7 @@
             <input type="text" id="filmName" placeholder="Buscar">
         </section>
         <section id="newFilm" class="flex"></section>
+        <section id="savedFilm" class="flex"></section>
 
     </main>
 
@@ -154,6 +155,18 @@
 
             </div>
             <button class="addFilmButton gnralButtonStyle">{{Button}}</button>
+        </div>
+    </template>
+
+    <template id="templateSaved" type="x-tmpl-mustache">
+        <div class="savedFilms">
+            <img src="{{image}}" alt="">
+            <div>
+                <h2>{{Title}}</h2>
+                <h3>{{Year}}</h3>
+                <span>{{Vista}}</span>
+            </div>
+            <button class="deleteFilmButton gnralButtonStyle">{{Button}}</button>
         </div>
     </template>
 
