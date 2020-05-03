@@ -478,13 +478,13 @@ function searchFilmsApi() {
 
                     seeFilms.forEach(filmsInd => {
 
-                        var rendered = Mustache.render(document.getElementById('templateNew').innerHTML, { filmsInd, Title: filmsInd.Title, image: filmsInd.Poster, Year: filmsInd.Year, Vista: "¡Vista!", Button: "Guardada" });
+                        var rendered = Mustache.render(document.getElementById('templateNew').innerHTML, { filmsInd, Title: filmsInd[0].Title, image: filmsInd[0].Poster, Year: filmsInd.Year, Vista: "¡Vista!", Button: "Guardada" });
                         content.innerHTML += rendered;
 
                     })
 
 
-                })
+                });
 
 
             checkFilmsNoSaved(data.Search)
@@ -627,11 +627,15 @@ function checkFilmsNoSaved(datosFilms) {
 
 
         refData.on('value', (snapshot) => {
-            snapshot.forEach((childSnapshot) => {
-                let finalArray = datosFilms.filter(datosFilm => datosFilm.imdbID !== childSnapshot.key);
-                resolve(finalArray)
+            if (snapshot.val() !== null) {
+                snapshot.forEach((childSnapshot) => {
+                    let finalArray = datosFilms.filter(datosFilm => datosFilm.imdbID !== childSnapshot.key);
+                    resolve(finalArray)
 
-            })
+                })
+            } else {
+                resolve(datosFilms)
+            }
 
         })
     })
@@ -644,13 +648,21 @@ function checkFilmsSaved(datosFilms) {
     return new Promise((resolve) => {
         var refData = firebase.database().ref('usersSafim/' + firebase.auth().currentUser.uid + "/savedFiles");
 
+        var arrayFinal = new Array;
+
         refData.on('value', (snapshot) => {
-            snapshot.forEach((childSnapshot) => {
-                let finalArray = datosFilms.filter(datosFilm => datosFilm.imdbID === childSnapshot.key);
-                resolve(finalArray)
-
-            })
-
+            if (snapshot.val() !== null) {
+                snapshot.forEach((childSnapshot) => {
+                    let finalArray = datosFilms.filter(datosFilm => datosFilm.imdbID === childSnapshot.key);
+                    arrayFinal.push(finalArray)
+                })
+               
+                console.log(arrayFinal)
+                resolve(arrayFinal)
+                
+            } else {
+                console.log("nulo")
+            }
         })
     })
 }
