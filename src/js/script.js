@@ -472,31 +472,16 @@ function searchFilmsApi() {
         .then(response => response.json())
 
         .then(data => {
-            checkFilmsSaved(data.Search)
-                .then((seeFilms) => {
+            content.innerHTML = " ";
 
+            arrayResult(data.Search)
 
-                    seeFilms.forEach(filmsInd => {
-
-                        var rendered = Mustache.render(document.getElementById('templateNew').innerHTML, { filmsInd, Title: filmsInd[0].Title, image: filmsInd[0].Poster, Year: filmsInd.Year, Vista: "¡Vista!", Button: "Guardada" });
-                        content.innerHTML += rendered;
-
-                    })
-
-
-                });
-
-
-            checkFilmsNoSaved(data.Search)
-
-                .then((respuesta) => {
-
-
-                    respuesta.forEach(filmsInd => {
+                .then((datos) => {
+                    
+                    datos.forEach(filmsInd => {
 
                         var rendered = Mustache.render(document.getElementById('templateNew').innerHTML, { filmsInd, Title: filmsInd.Title, image: filmsInd.Poster, Year: filmsInd.Year, Vista: "Marcar como vista", Button: "Añadir" });
                         content.innerHTML += rendered;
-
                     })
 
                     //Boton de añadir pelicula
@@ -571,9 +556,10 @@ function searchFilmsApi() {
 
 
                     }
-
-
                 })
+
+
+
         })
 
         .catch(function (error) {
@@ -588,8 +574,10 @@ function searchFilmsApi() {
 // Funcioon para el guardado de peliculas en la base de datos
 
 function addFilms(indvFilms, markSee) {
+    
+
     var indvName = indvFilms.Title.replace(" ", "+");
-    let clicked = markSee.getAttribute("aria-pressed")
+    let clicked = markSee.getAttribute("aria-pressed");
     var indvUrl = 'http://www.omdbapi.com/?apikey=' + apiKeyFilms + '&t=' + indvName + '&plot=full';
 
     fetch(indvUrl)
@@ -608,9 +596,7 @@ function addFilms(indvFilms, markSee) {
                 Puntuacion: data.imdbRating,
                 Vista: clicked
             });
-
-
-
+searchFilmsApi()
         })
 
         .catch(function (error) {
@@ -619,50 +605,33 @@ function addFilms(indvFilms, markSee) {
 }
 
 
-// Función para filtrar las peliculas no vistas
-function checkFilmsNoSaved(datosFilms) {
 
-    return new Promise((resolve) => {
+
+
+function arrayResult(datosFilms) {
+    return new Promise(resolve => {
+
         var refData = firebase.database().ref('usersSafim/' + firebase.auth().currentUser.uid + "/savedFiles");
-
-
         refData.on('value', (snapshot) => {
-            if (snapshot.val() !== null) {
-                snapshot.forEach((childSnapshot) => {
-                    let finalArray = datosFilms.filter(datosFilm => datosFilm.imdbID !== childSnapshot.key);
-                    resolve(finalArray)
-
-                })
-            } else {
+            if (snapshot.val() === null) {
                 resolve(datosFilms)
-            }
 
-        })
-    })
-}
-
-// Función para filtrar las peliculas vistas
-
-function checkFilmsSaved(datosFilms) {
-
-    return new Promise((resolve) => {
-        var refData = firebase.database().ref('usersSafim/' + firebase.auth().currentUser.uid + "/savedFiles");
-
-        var arrayFinal = new Array;
-
-        refData.on('value', (snapshot) => {
-            if (snapshot.val() !== null) {
-                snapshot.forEach((childSnapshot) => {
-                    let finalArray = datosFilms.filter(datosFilm => datosFilm.imdbID === childSnapshot.key);
-                    arrayFinal.push(finalArray)
-                })
-               
-                console.log(arrayFinal)
-                resolve(arrayFinal)
-                
             } else {
-                console.log("nulo")
+                snapshot.forEach((childSnapshot) => {
+                    for (var i = 0; i < datosFilms.length; i++) {
+
+                        if (datosFilms[i].imdbID === childSnapshot.key) {
+                            delete datosFilms[i]
+                            datosFilms.splice(i, 1)
+
+                        }
+
+                    }
+                    resolve(datosFilms)
+                })
+
             }
         })
     })
 }
+
