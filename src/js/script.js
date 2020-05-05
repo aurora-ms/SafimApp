@@ -14,6 +14,7 @@ import { apiKeyFilms } from "./apis.js"
 
 
 
+
 var menu = document.querySelector('.hamburger');
 menu.addEventListener('click', toggleMenu, false);
 
@@ -40,7 +41,6 @@ firebase.initializeApp(firebaseConfig);
 
 function searchUser() {
     // Retornamos una promesa con resolve si hay un usuario con sesion iniciada o reject si no hay usuario con sesion iniciada
-
     return new Promise((resolve) => {
 
         // Comprobar que el usuario está registrado
@@ -81,6 +81,8 @@ searchUser()
             sucessMessg.innerText = result + " bienvenido";
 
             document.getElementById('login').style.opacity = "0";
+
+            localStorage.setItem('nombreUser', result);
 
             setTimeout(() => {
 
@@ -286,7 +288,6 @@ registerButtonSection.addEventListener('click', () => {
     }
 
 })
-
 
 // Inicio de sesión con usuario y contraseña
 

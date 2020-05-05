@@ -4,17 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="PWA Safim">
+    <meta name="description" content="App para el guardado de peliculas y series">
     <title>Films App</title>
 
-    <link rel="stylesheet" href="src/css/style.css">
-    <link rel="stylesheet" href="src/css/style_menu.css">
-    <link rel="stylesheet" href="src/css/spinner.css">
+    <link rel="stylesheet" href="./src/css/style.css">
+    <link rel="stylesheet" href="./src/css/style_menu.css">
+    <link rel="stylesheet" href="./src/css/spinner.css">
 
-    <link rel="shortcut icon" href="src/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="./src/img/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Oxanium:400,500,600,700,800 display=swap" rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&display=swap"
         rel="stylesheet">
+    <link rel="manifest" href="./manifest.json">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -146,7 +150,7 @@
                 <h2>{{Title}}</h2>
                 <h3>{{Year}}</h3>
                 <div id="seeFilms" class="flex">
-                    <div class="flex" role="button" aria-pressed="false" > 
+                    <div class="flex" role="button" aria-pressed="false">
                         <img src="src/img/noseefilm_ico.png" alt="">
                     </div>
                     <span>{{Vista}}</span>
@@ -166,9 +170,9 @@
                 <h3>{{Year}}</h3>
             </div>
 
-                <div class="flex" role="button" aria-pressed="{{ariaPress}}" > 
-                    <img src="{{seeIcons}}" alt="">
-                </div>
+            <div class="flex" role="button" aria-pressed="{{ariaPress}}">
+                <img src="{{seeIcons}}" alt="">
+            </div>
 
             <button class="deleteFilmButton gnralButtonStyle">{{Button}}</button>
         </div>
@@ -176,10 +180,22 @@
 
     <script src="https://unpkg.com/page/page.js"></script>
 
-    <script src="src/js/script.js" type="module"></script>
+    <script src="./src/js/script.js" type="module"></script>
 
     <script src="https://unpkg.com/mustache@latest"></script>
 
+    <!-- Registro del Service Worker -->
+    <script>
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((reg) => {
+                        console.log('Service worker registered.', reg);
+                    });
+            });
+        }
+    </script>
 
 </body>
 
