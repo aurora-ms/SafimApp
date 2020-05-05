@@ -134,8 +134,8 @@
             <div class="flex" id="searchButton"><i class="material-icons">search</i></div>
             <input type="text" id="filmName" placeholder="Buscar">
         </section>
-        <section id="newFilm" class="flex"></section>
-        <section id="savedFilm" class="flex"></section>
+        <section id="newFilm" class="flex whiteSpace"></section>
+        <section id="savedFilm" class="flex whiteSpace"></section>
 
     </main>
 
@@ -159,13 +159,17 @@
     </template>
 
     <template id="templateSaved" type="x-tmpl-mustache">
-        <div class="savedFilms">
+        <div class="newFilms">
             <img src="{{image}}" alt="">
             <div>
                 <h2>{{Title}}</h2>
                 <h3>{{Year}}</h3>
-                <span>{{Vista}}</span>
             </div>
+
+                <div class="flex" role="button" aria-pressed="{{ariaPress}}" > 
+                    <img src="{{seeIcons}}" alt="">
+                </div>
+
             <button class="deleteFilmButton gnralButtonStyle">{{Button}}</button>
         </div>
     </template>

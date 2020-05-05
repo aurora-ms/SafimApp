@@ -266,7 +266,7 @@ input#filmName {
 
 
 
-section#newFilm {
+section.whiteSpace {
     padding: 0 30px;
 }
 

@@ -439,10 +439,23 @@ function savedFilms() {
     refData.on('value', (snapshot) => {
         snapshot.forEach((childSnapshot) => {
             const content = document.getElementById('savedFilm');
-            console.log(childSnapshot.val().Titulo)
 
-            // var rendered = Mustache.render(document.getElementById('templateSaved').innerHTML, { filmsInd, Title: filmsInd.Title, image: filmsInd.Poster, Year: filmsInd.Year, Vista: "¡Vista!", Button: "Guardada" });
-            // content.innerHTML += rendered;
+            var filmsInd = childSnapshot.val();
+            if (filmsInd.Vista === "true") {
+                var seeIcon = "/src/img/seefilm_ico.png"
+                var pressedValue = "true"
+
+            } else {
+
+                var seeIcon = "/src/img/noseefilm_ico.png"
+                var pressedValue = "false"
+
+            }
+            
+            var rendered = Mustache.render(document.getElementById('templateSaved').innerHTML, { filmsInd, Title: filmsInd.Titulo, image: filmsInd.Poster, Year: filmsInd.Fecha, seeIcons: seeIcon, ariaPress: pressedValue, Button: "Borrar" });
+
+            content.innerHTML += rendered;
+
 
         })
     })
@@ -477,7 +490,7 @@ function searchFilmsApi() {
             arrayResult(data.Search)
 
                 .then((datos) => {
-                    
+
                     datos.forEach(filmsInd => {
 
                         var rendered = Mustache.render(document.getElementById('templateNew').innerHTML, { filmsInd, Title: filmsInd.Title, image: filmsInd.Poster, Year: filmsInd.Year, Vista: "Marcar como vista", Button: "Añadir" });
@@ -574,7 +587,7 @@ function searchFilmsApi() {
 // Funcioon para el guardado de peliculas en la base de datos
 
 function addFilms(indvFilms, markSee) {
-    
+
 
     var indvName = indvFilms.Title.replace(" ", "+");
     let clicked = markSee.getAttribute("aria-pressed");
@@ -588,15 +601,15 @@ function addFilms(indvFilms, markSee) {
 
 
             refMovies.set({
-                Poster: data.Type,
+                Poster: data.Poster,
                 Titulo: data.Title,
                 Fecha: data.Year,
                 País: data.Country,
-                País: data.Released,
+                Tipo: data.Type,
                 Puntuacion: data.imdbRating,
                 Vista: clicked
             });
-searchFilmsApi()
+            searchFilmsApi()
         })
 
         .catch(function (error) {
