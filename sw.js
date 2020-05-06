@@ -7,10 +7,14 @@ const PRECACHE_URLS = [
     '/',
     './index.html',
     './src/img/logo_app.png',
+    './src/img/favicon.ico',
+    './src/img/ico-google.png',
     './src/css/style.css',
+    './src/css/style_menu.css',
     './src/js/script.js',
     './src/css/spinner.css',
-    './manifest.json',
+    './manifest.json'
+   
 ];
 
 self.addEventListener('install', event => {
