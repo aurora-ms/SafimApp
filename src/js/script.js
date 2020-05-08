@@ -55,6 +55,7 @@ function searchUser() {
 
                         if (childSnapshot.key === firebase.auth().currentUser.uid) {
                             resolve(childSnapshot.val().User)
+                            console.log(childSnapshot.val().User)
                         }
                     })
                 })

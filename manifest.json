@@ -3,7 +3,7 @@
     "short_name": "Safim ",
     "theme_color": "#3273b8",
     "background_color": "#021427",
-    "display": "browser",
+    "display": "fullscreen",
     "scope": "/",
     "start_url": "/",
     "description": "App para el guardado de peliculas vistas y pendientes de ver",
