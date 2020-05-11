@@ -350,6 +350,28 @@ div#seeFilms {
 
 }
 
+.ct-chart{
+    width: 100%; 
+    text-align: center;
+
+}
+
+.ct-grid {
+    stroke: none!important;
+}
+
+.ct-bar {
+    stroke-width: 52px!important;
+}
+
+.ct-series-a .ct-bar, .ct-series-a .ct-line, .ct-series-a .ct-point, .ct-series-a .ct-slice-donut  {
+    stroke: #3273b8!important;
+}
+
+.ct-label {
+    color: rgba(255, 255, 255, 0.4)!important;
+}
+
 .flex {
     display: flex;
     flex-wrap: wrap;

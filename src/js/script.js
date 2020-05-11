@@ -55,7 +55,6 @@ function searchUser() {
 
                         if (childSnapshot.key === firebase.auth().currentUser.uid) {
                             resolve(childSnapshot.val().User)
-                            console.log(childSnapshot.val().User)
                         }
                     })
                 })
@@ -106,6 +105,7 @@ searchUser()
         } else {
 
             //Si el usuario no esta registrado
+            localStorage.setItem('nombreUser', 'nuevo desconocido');
 
             // Quitar el sppiner de login y visualizar la cabecera y los botones y login y registro
             document.getElementById('login').style.opacity = "0";
@@ -321,7 +321,7 @@ loginButtonSection.addEventListener('click', () => {
                         document.getElementById('menuSection').classList.remove('hidden');
 
                         document.getElementById('menuSection').style.animation = "1.5s cubic-bezier(0, 0, 0, 1.15) 0s 1 normal forwards running translateX";
-
+                        page.redirect('/inicio')
                     }
 
                 })
@@ -392,6 +392,9 @@ googleLogin.addEventListener('click', () => {
             Email: user.email,
         });
 
+        page.redirect('/inicio')
+
+
         initAnimation(user.displayName, selectedSection, " bienvenido")
 
 
@@ -438,29 +441,57 @@ function savedFilms() {
     document.getElementById('searchfilms').classList.add('hidden')
     var refData = firebase.database().ref('usersSafim/' + firebase.auth().currentUser.uid + "/savedFiles");
 
+    document.getElementById('newFilm').classList.add('hidden');
+    document.getElementById('savedFilm').classList.remove('hidden');
+    var vistas = 0;
+    var noVistas = 0;
     refData.on('value', (snapshot) => {
         snapshot.forEach((childSnapshot) => {
             const content = document.getElementById('savedFilm');
-
             var filmsInd = childSnapshot.val();
+
             if (filmsInd.Vista === "true") {
                 var seeIcon = "/src/img/seefilm_ico.png"
-                var pressedValue = "true"
+                var pressedValue = "true";
 
+                vistas += 1
             } else {
 
                 var seeIcon = "/src/img/noseefilm_ico.png"
                 var pressedValue = "false"
+                noVistas += 1
 
             }
-            
+
             var rendered = Mustache.render(document.getElementById('templateSaved').innerHTML, { filmsInd, Title: filmsInd.Titulo, image: filmsInd.Poster, Year: filmsInd.Fecha, seeIcons: seeIcon, ariaPress: pressedValue, Button: "Borrar" });
 
             content.innerHTML += rendered;
 
 
+
         })
     })
+
+    chartList(vistas, noVistas)
+
+}
+
+var options = {
+    width: 300,
+    height: 200,
+  };
+
+ 
+
+
+function chartList(vist, nVist) {
+
+    new Chartist.Bar('.ct-chart', {
+        labels: ['Vistas', 'Sin ver'],
+        series: [
+          [vist, nVist]
+        ]
+      }, options);
 }
 
 
@@ -498,6 +529,9 @@ function searchFilmsApi() {
                         var rendered = Mustache.render(document.getElementById('templateNew').innerHTML, { filmsInd, Title: filmsInd.Title, image: filmsInd.Poster, Year: filmsInd.Year, Vista: "Marcar como vista", Button: "Añadir" });
                         content.innerHTML += rendered;
                     })
+                    content.classList.remove('hidden')
+                    document.getElementById('savedFilm').classList.add('hidden')
+
 
                     //Boton de añadir pelicula
                     var addFilmButton = document.getElementsByClassName('addFilmButton');
@@ -641,7 +675,12 @@ function arrayResult(datosFilms) {
 
                         }
 
+                        var location = new Array;
+
+
+
                     }
+
                     resolve(datosFilms)
                 })
 

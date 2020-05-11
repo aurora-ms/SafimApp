@@ -62,9 +62,11 @@ div#menuPrincipal {
   
   .menuppal.is_active {
     transform: translateY(0px);
+    z-index: 1;
   }
+
   .menuppal {
-    background-color: rgba(195, 224, 255, 0.83);
+    background-color: rgb(195, 224, 255);
     transform: translateY(-102%);
     transition: transform 0.35s cubic-bezier(0.05, 1.04, 0.72, 0.98) 0s;
     width: 100%;
