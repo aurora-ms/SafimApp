@@ -6,10 +6,22 @@ const RUNTIME = 'runtime';
 const PRECACHE_URLS = [
     '/',
     './index.html',
-    './src/css/style.css'
+    './src/css/style.css',
+    './src/img/ico-google.png',
+    './src/css/style_menu.css',
+    './src/css/spinner.css',
+    './manifest.json',
+    './src/img/favicon.ico',
+    './src/img/logo_app.png', 
 
    
-];
+];   
+
+
+
+
+
+
 
 self.addEventListener('install', event => {
     event.waitUntil(

@@ -1,10 +1,35 @@
-page.base('');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: script.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: script.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>page.base('');
 page('/inicio', searchFilms);
 page('/peliculas_guardadas', savedFilms);
 page();
-
-
-
 
 
 
@@ -83,7 +108,9 @@ function searchUser() {
 //Si el usuario si esta registrado
 
 searchUser()
-
+    /**
+     * @param  {string} result Respuesta de la promesa
+     */
     .then(result => {
 
         if (result !== "no user") {
@@ -267,11 +294,6 @@ registerButtonSection.addEventListener('click', () => {
                     Email: userEmailRegtr,
                 });
 
-                document.getElementById('searchfilms').classList.remove('hidden')
-                document.getElementById('menuSection').classList.remove('hidden')
-document.getElementById('princMenu').style.opacity ="1";
-
-
                 // Borrado de mensajes de error en la section de registro
                 errorMessageEmail.classList.add('hidden');
                 errorMessagePassword.classList.add('hidden');
@@ -329,8 +351,6 @@ loginButtonSection.addEventListener('click', () => {
 
                     if (childSnapshot.val().Email === userEmail) {
                         var userLogin = childSnapshot.val().User
-
-                        localStorage.setItem('nombreUser', userLogin)
 
                         //Quitar los mensajes de error de la caja de login
                         errorMessageEmail.classList.add('hidden');
@@ -449,31 +469,9 @@ function salir() {
 
 // Acciones a realizar cuando se de a Buscador en el menu
 function searchFilms() {
-    var allsavedFilms = new Array;
-    var refData = firebase.database().ref('usersSafim/' + firebase.auth().currentUser.uid + "/savedFiles");
-
-    refData.on('value', (snapshot) => {
-        if (snapshot.val() !== null) {
-            snapshot.forEach((childSnapshot) => {
-
-                allsavedFilms.push(childSnapshot.val())
-
-
-            })
-        } else {
-            allsavedFilms = 'Aun no tienes peliculas guardadas';
-        }
-    })
-
-
-    localStorage.setItem('datos', JSON.stringify(allsavedFilms))
-
     document.getElementById('searchfilms').classList.remove('hidden')
     document.getElementById('savedFilm').classList.add('hidden');
 }
-
-
-
 
 
 // Acciones a realizar cuando se de a Guardadas en el menu
@@ -489,8 +487,6 @@ function savedFilms() {
         snapshot.forEach((childSnapshot) => {
             const content = document.getElementById('savedFilm');
             var filmsInd = childSnapshot.val();
-
-
 
             if (filmsInd.Vista === "true") {
                 var seeIcon = "/src/img/seefilm_ico.png"
@@ -558,7 +554,7 @@ function searchFilmsApi() {
     const content = document.getElementById('newFilm');
     var filmName = document.getElementById('filmName').value;
 
-    var url = 'http://www.omdbapi.com/?apikey=' + apiKeyFilms + '&s=' + filmName + '&page=1';
+    var url = 'http://www.omdbapi.com/?apikey=' + apiKeyFilms + '&amp;s=' + filmName + '&amp;page=1';
 
     fetch(url)
 
@@ -594,7 +590,7 @@ function searchFilmsApi() {
 
 
 
-                    for (let i = 0; i < addFilmButton.length; i++) {
+                    for (let i = 0; i &lt; addFilmButton.length; i++) {
 
 
                         if (msgSeeFilm[i].innerText === "¡Vista!") {
@@ -624,7 +620,7 @@ function searchFilmsApi() {
                     }
 
 
-                    //Función que se ejecuta al quitar el ratón de encima del icono de vista de cada pelicula
+                   //Función que se ejecuta al quitar el ratón de encima del icono de vista de cada pelicula
 
                     function funcMouseout(position) {
 
@@ -636,7 +632,7 @@ function searchFilmsApi() {
                         }
                     }
 
-                    //Función que se ejecuta al pulsar el icono de vista
+                 //Función que se ejecuta al pulsar el icono de vista
 
                     function funcMouseClick(position) {
 
@@ -684,7 +680,7 @@ function addFilms(indvFilms, markSee) {
 
     var indvName = indvFilms.Title.replace(" ", "+");
     let clicked = markSee.getAttribute("aria-pressed");
-    var indvUrl = 'http://www.omdbapi.com/?apikey=' + apiKeyFilms + '&t=' + indvName + '&plot=full';
+    var indvUrl = 'http://www.omdbapi.com/?apikey=' + apiKeyFilms + '&amp;t=' + indvName + '&amp;plot=full';
 
     fetch(indvUrl)
         .then(response => response.json())
@@ -728,13 +724,17 @@ function arrayResult(datosFilms) {
 
             } else {
                 snapshot.forEach((childSnapshot) => {
-                    for (var i = 0; i < datosFilms.length; i++) {
+                    for (var i = 0; i &lt; datosFilms.length; i++) {
 
                         if (datosFilms[i].imdbID === childSnapshot.key) {
                             delete datosFilms[i]
                             datosFilms.splice(i, 1)
 
                         }
+
+                        var location = new Array;
+
+
 
                     }
 
@@ -746,4 +746,26 @@ function arrayResult(datosFilms) {
     })
 }
 
+</code></pre>
+        </article>
+    </section>
 
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addFilms">addFilms</a></li><li><a href="global.html#arrayResult">arrayResult</a></li><li><a href="global.html#chartList">chartList</a></li><li><a href="global.html#disableF5">disableF5</a></li><li><a href="global.html#searchUser">searchUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon May 11 2020 11:55:01 GMT+0200 (GMT+02:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -372,6 +372,12 @@ div#seeFilms {
     color: rgba(255, 255, 255, 0.4)!important;
 }
 
+
+section#offline {
+    color: white;
+    text-align: center;
+}
+
 .flex {
     display: flex;
     flex-wrap: wrap;

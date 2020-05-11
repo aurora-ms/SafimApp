@@ -45,6 +45,9 @@
         <div class="sbl-circ-ripple"></div>
         <h4>Safim App</h4>
         <div id="mydiv" style="color: white;"></div>
+        <section id="offline" class="hidden">
+            <h2>Bienvenido</h2>
+        </section>
     </section>
 
 
@@ -53,9 +56,7 @@
         <h1>Safim App</h1>
     </header>
 
-    <section id="offline" class="hidden">
-        <h2>Bienvenido</h2>
-    </section>
+
 
 
     <section id="menuSection" class="flex hidden">
@@ -144,7 +145,7 @@
 
         </section>
 
-        
+
 
         <section id="searchfilms" class="hidden flex ">
             <div class="flex" id="searchButton"><i class="material-icons">search</i></div>
@@ -153,7 +154,7 @@
 
         <section id="newFilm" class="flex whiteSpace"></section>
 
-        <section id="savedFilm" class="flex whiteSpace"> 
+        <section id="savedFilm" class="flex whiteSpace">
             <div class="ct-chart"></div>
         </section>
 
@@ -199,38 +200,76 @@
     <!-- Registro del Service Worker -->
     <script>
 
+        
+
         if (!window.navigator.onLine) {
 
-            console.log("offline")
             document.getElementById('initSection').style.display = 'none'
             var usuario = localStorage.getItem('nombreUser');
-            console.log(usuario);
 
             var userOffline = document.createElement('h2');
-            userOffline.innerHTML = usuario
-            document.getElementById('offline').appendChild(userOffline)
+            userOffline.innerHTML = usuario + "<br> <p>Ahora mismo te encuentras sin conexión</p>"
+            document.getElementById('offline').appendChild(userOffline);
+            document.getElementById('offline').classList.remove('hidden');
+            var guardado = localStorage.getItem('datos');
+
+            var tipo = typeof guardado;
+
+            console.log(tipo)
+
+
+            if (guardado !== null && tipo !== 'string') {
+                var offlineButton = document.createElement('button');
+                offlineButton.innerText = "Ver películas guardadas";
+                document.getElementById('offline').appendChild(offlineButton)
+
+                offlineButton.addEventListener('click', () => {
+
+                    var datos = JSON.parse(guardado);
+
+
+                    for (var i = 0; i < datos.length; i++) {
+
+                        var titulos = document.createElement('h3');
+                        titulos.innerText = datos[i].Titulo;
+                        document.getElementById('offline').appendChild(titulos)
+
+                    }
+
+
+                })
+
+
+
+            } else if (tipo === 'string') {
+                var contenido = document.createElement('h3');
+                contenido.innerText = guardado;
+                document.getElementById('offline').appendChild(contenido)
+
+
+            }
         }
 
 
-        // if ('serviceWorker' in navigator) {
-        //     window.addEventListener('load', () => {
-        //         navigator.serviceWorker.register('sw.js')
-        //             .then((reg) => {
-        //                 console.log('Service worker registered.', reg);
-        //             });
-        //     });
-        // }
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then((reg) => {
+                        console.log('Service worker registered.', reg);
+                    });
+            });
+        }
     </script>
 
 
     <script src="https://unpkg.com/page/page.js"></script>
 
 
-  <script src="https://unpkg.com/mustache@latest"></script>
+    <script src="https://unpkg.com/mustache@latest"></script>
 
-  <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 
-<script src="/src/js/script.js" type="module"></script>
+    <script src="/src/js/script.js" type="module"></script>
 
 
 
